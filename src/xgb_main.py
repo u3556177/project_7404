@@ -5,8 +5,11 @@
 
 import utils
 import datetime
+import subprocess
+import codecs
 import xgboost as xgb
 from matplotlib.pyplot import show
+from graphviz import Digraph
 
 if __name__ == '__main__':
 
@@ -18,7 +21,7 @@ if __name__ == '__main__':
 
     # fit model
     train_data = xgb.DMatrix(X_train, y_train, feature_names=feature_labels)
-    train_param = {'max_depth':5, 'eta':0.1, 'silent':1, 'objective':'binary:logistic'}
+    train_param = {'max_depth':10, 'eta':0.1, 'silent':1, 'objective':'binary:logistic'}
     train_iteration = 100
     model = xgb.train(train_param, train_data, train_iteration)
 
@@ -35,6 +38,11 @@ if __name__ == '__main__':
     utils.printAccuarcy(y_test, y_pred)
 
     # plot tree
-    xgb.plot_tree(model)
-    show()
+    #xgb.plot_tree(model)
+    #show()
+    g = xgb.to_graphviz(model)
+    f = codecs.open('../output/xgb_tree.pdf', mode='wb')
+    f.write(g.pipe('pdf'))
+    f.close()
+    subprocess.Popen('start ../output/xgb_tree.pdf',shell=True)
 

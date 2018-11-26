@@ -34,6 +34,6 @@ if __name__ == '__main__':
     utils.printAccuarcy(y_test, y_pred)
     
     # plot tree
-    id3.export_graphviz(model.tree_, '../output/id3_tree.dot', feature_labels)
-    s = Source.from_file('../output/id3_tree.dot')
+    id3.export_graphviz(model.tree_, '../output/id3_tree', feature_labels)
+    s = Source.from_file('../output/id3_tree')
     s.view()

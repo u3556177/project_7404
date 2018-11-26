@@ -19,3 +19,6 @@ XGBoost
 cd src
 py xgb_main.py
 ```
+
+## Note
+This program has been tested on Windows ONLY
