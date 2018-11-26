@@ -3,6 +3,7 @@
 
 from numpy import loadtxt
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 
 def loadDataSet():
@@ -23,3 +24,8 @@ def loadDataSet():
     'concave points_worst','symmetry_worst','fractal_dimension_worst']
     
     return X_train, X_test, y_train, y_test, labels
+
+def printAccuarcy(y_test, y_pred):
+    predictions = [round(value) for value in y_pred]
+    accuracy = accuracy_score(y_test, predictions)
+    print("Accuracy: %.2f%%" % (accuracy * 100.0))

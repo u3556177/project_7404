@@ -5,7 +5,6 @@
 
 import utils
 import xgboost as xgb
-from sklearn.metrics import accuracy_score
 from matplotlib.pyplot import show
 
 if __name__ == '__main__':
@@ -23,9 +22,7 @@ if __name__ == '__main__':
     y_pred = model.predict(test_data)
 
     # evaluate predictions
-    predictions = [round(value) for value in y_pred]
-    accuracy = accuracy_score(y_test, predictions)
-    print("Accuracy: %.2f%%" % (accuracy * 100.0))
+    utils.printAccuarcy(y_test, y_pred)
 
     # plot tree
     xgb.plot_tree(model)
