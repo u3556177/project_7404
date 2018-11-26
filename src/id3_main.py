@@ -29,6 +29,6 @@ if __name__ == '__main__':
     print("Accuracy: %.2f%%" % (accuracy * 100.0))
 
     # plot tree
-    export_graphviz(model.tree_, 'output/id3_tree.dot', feature_labels)
-    s = Source.from_file('output/id3_tree.dot')
+    export_graphviz(model.tree_, '../output/id3_tree.dot', feature_labels)
+    s = Source.from_file('../output/id3_tree.dot')
     s.view()
