@@ -4,6 +4,7 @@
 ############### Breast cancer classification by ID3 ##################
 
 import utils
+import os
 import datetime
 import id3
 from graphviz import Source
@@ -34,6 +35,6 @@ if __name__ == '__main__':
     utils.printAccuarcy(y_test, y_pred)
     
     # plot tree
-    id3.export_graphviz(model.tree_, '../output/id3_tree', feature_labels)
-    s = Source.from_file('../output/id3_tree')
+    id3.export_graphviz(model.tree_, os.path.join('..','output','id3_tree'), feature_labels)
+    s = Source.from_file(os.path.join('..','output','id3_tree'))
     s.view()

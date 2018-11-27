@@ -4,12 +4,14 @@
 ############### Breast cancer classification by XGBoost ##################
 
 import utils
+import os
 import datetime
 import subprocess
 import codecs
 import xgboost as xgb
 from matplotlib.pyplot import show
 from graphviz import Digraph
+from sys import platform
 
 if __name__ == '__main__':
 
@@ -22,7 +24,7 @@ if __name__ == '__main__':
     # fit model
     train_data = xgb.DMatrix(X_train, y_train, feature_names=feature_labels)
     train_param = {'max_depth':10, 'eta':0.1, 'silent':1, 'objective':'binary:logistic'}
-    train_iteration = 100
+    train_iteration = 50
     model = xgb.train(train_param, train_data, train_iteration)
 
     # make predictions for test data
@@ -41,8 +43,13 @@ if __name__ == '__main__':
     #xgb.plot_tree(model)
     #show()
     g = xgb.to_graphviz(model)
-    f = codecs.open('../output/xgb_tree.pdf', mode='wb')
+    f = codecs.open(os.path.join('..','output','xgb_tree.pdf'), mode='wb')
     f.write(g.pipe('pdf'))
     f.close()
-    subprocess.Popen('start ../output/xgb_tree.pdf',shell=True)
+    if platform == "linux" or platform == "linux2":
+        subprocess.Popen('xdg-open ' + os.path.join('..','output','xgb_tree.pdf'), shell=True)
+    elif platform == "darwin":
+        subprocess.Popen('open ' + os.path.join('..','output','xgb_tree.pdf'), shell=True)
+    elif platform == "win32":
+        subprocess.Popen('start ' + os.path.join('..','output','xgb_tree.pdf'), shell=True)
 

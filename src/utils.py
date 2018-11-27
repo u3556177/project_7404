@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 from numpy import loadtxt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -8,7 +9,7 @@ from sklearn.metrics import accuracy_score
 
 def loadDataSet():
     # load the dataset 
-    dataset = loadtxt('../data/data.csv', delimiter=",")
+    dataset = loadtxt(os.path.join('..','data','data.csv'), delimiter=",")
     # split data into X and y
     X = dataset[:,0:30]
     Y = dataset[:,30]
