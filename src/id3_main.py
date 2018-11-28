@@ -39,6 +39,10 @@ if __name__ == '__main__':
     timeElapsed = endTime - startTime
     print('Total elapsed time for ID3 = ' + str(round(timeElapsed.total_seconds() * 1000, 4)) + ' ms')
 
+    # plot ROC and ROC curves
+    y_pred_prob = clf.predict_proba(X_test)[:,1]
+    utils.printCurves(X_test, y_test, y_pred, y_pred_prob, os.path.join('..','output','id3_curve.pdf'))
+
     # evaluate predictions
     utils.printAccuarcy(y_test, y_pred)
 
@@ -51,9 +55,6 @@ if __name__ == '__main__':
     # print confusion matrix
     utils.printConfusionMatrix(y_test, y_pred)
 
-    # plot ROC and ROC curves
-    y_pred_prob = clf.predict_proba(X_test)[:,1]
-    utils.printCurves(X_test, y_test, y_pred, y_pred_prob, os.path.join('..','output','id3_curve.pdf'))
     
     # plot tree
     dot_data = export_graphviz(clf, out_file=None, feature_names=dataset.feature_names, filled=True, 

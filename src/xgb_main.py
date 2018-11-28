@@ -41,6 +41,12 @@ if __name__ == '__main__':
     timeElapsed = endTime - startTime
     print('Total elapsed time for XGBoost ' + str(train_iteration) + ' training iterations = ' + str(round(timeElapsed.total_seconds() * 1000, 4)) + ' ms')
 
+    # plot ROC and ROC curves
+    classone_probs = y_pred
+    classzero_probs = 1.0 - classone_probs
+    y_pred_prob = np.vstack((classzero_probs, classone_probs)).transpose()[:,1]
+    utils.printCurves(X_test, y_test, y_pred, y_pred_prob, os.path.join('..','output','xgb_curve.pdf'))
+
     # evaluate predictions
     y_pred = np.where(y_pred > 0.5, 1, 0)
     utils.printAccuarcy(y_test, y_pred)
@@ -53,12 +59,6 @@ if __name__ == '__main__':
 
     # print confusion matrix
     utils.printConfusionMatrix(y_test, y_pred)
-
-    # plot ROC and ROC curves
-    classone_probs = y_pred
-    classzero_probs = 1.0 - classone_probs
-    y_pred_prob = np.vstack((classzero_probs, classone_probs)).transpose()[:,1]
-    utils.printCurves(X_test, y_test, y_pred, y_pred_prob, os.path.join('..','output','xgb_curve.pdf'))
 
     # plot tree
     g = xgb.to_graphviz(model)
