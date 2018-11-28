@@ -6,28 +6,33 @@
 import utils
 import os
 import datetime
-import subprocess
 import codecs
 import xgboost as xgb
 import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
 from sys import platform
 
 if __name__ == '__main__':
 
     # load dataset
-    X_train, X_test, y_train, y_test, feature_labels = utils.loadDataSet()
+    dataset = load_breast_cancer()
+    X = dataset.data
+    y = dataset.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=1)
+    feature_names = [w.replace(' ', '_') for w in dataset.feature_names]
 
     # start timer
     startTime = datetime.datetime.now()
 
     # fit model
-    train_data = xgb.DMatrix(X_train, y_train, feature_names=feature_labels)
+    train_data = xgb.DMatrix(X_train, y_train, feature_names=feature_names)
     train_param = {'max_depth':5, 'eta':0.1, 'silent':1, 'objective':'binary:logistic'}
-    train_iteration = 300
+    train_iteration = 10
     model = xgb.train(train_param, train_data, train_iteration)
 
     # make predictions for test data
-    test_data = xgb.DMatrix(X_test, y_test, feature_names=feature_labels)
+    test_data = xgb.DMatrix(X_test, y_test, feature_names=feature_names)
     y_pred = model.predict(test_data)
 
     # end timer

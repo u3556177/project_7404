@@ -9,20 +9,6 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
 
-def loadDataSet():
-    # load the dataset
-    dataset = pd.read_csv(os.path.join('..','data','data.csv'))
-    dataset.drop(['Unnamed: 32',"id"], axis=1, inplace=True)
-    dataset.diagnosis = [1 if each == "M" else 0 for each in dataset.diagnosis]
-    y = dataset.diagnosis.values
-    dataset.drop(['diagnosis'], axis=1, inplace=True)
-    x = dataset.values
-
-    # split data into training set and testing set 80% vs 20%
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=1)
-    
-    return X_train, X_test, y_train, y_test, dataset.columns
-
 def printAccuarcy(y_test, y_pred):
     predictions = [round(value) for value in y_pred]
     accuracy = metrics.accuracy_score(y_test, predictions)

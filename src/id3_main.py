@@ -8,13 +8,18 @@ import os
 import datetime
 import numpy as np
 import pandas as pd
+import graphviz
+from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import cross_val_predict,KFold,cross_val_score, train_test_split, learning_curve
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 if __name__ == '__main__':
 
     # load dataset
-    X_train, X_test, y_train, y_test, feature_labels = utils.loadDataSet()
+    dataset = load_breast_cancer()
+    X = dataset.data
+    y = dataset.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=1)
 
     # start timer
     startTime = datetime.datetime.now()
@@ -50,3 +55,9 @@ if __name__ == '__main__':
     y_pred_prob = clf.predict_proba(X_test)[:,1]
     utils.printCurves(X_test, y_test, y_pred, y_pred_prob, os.path.join('..','output','id3_curve.pdf'))
     
+    # plot tree
+    dot_data = export_graphviz(clf, out_file=None, feature_names=dataset.feature_names, filled=True, 
+    class_names=dataset.target_names ,rounded=True,  special_characters=True)  
+    graph = graphviz.Source(dot_data)
+    graph.render(filename='id3_tree', directory=os.path.join('..','output'))
+
