@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-import pandas as pd
-from numpy import loadtxt
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
 

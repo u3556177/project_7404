@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import graphviz
 from sklearn.datasets import load_breast_cancer
-from sklearn.model_selection import cross_val_predict,KFold,cross_val_score, train_test_split, learning_curve
+from sklearn.model_selection import cross_val_predict, cross_val_score, train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 if __name__ == '__main__':

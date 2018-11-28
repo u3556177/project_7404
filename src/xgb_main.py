@@ -9,6 +9,7 @@ import datetime
 import codecs
 import xgboost as xgb
 import numpy as np
+import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sys import platform
@@ -43,6 +44,12 @@ if __name__ == '__main__':
     # evaluate predictions
     y_pred = np.where(y_pred > 0.5, 1, 0)
     utils.printAccuarcy(y_test, y_pred)
+
+    # Null accuracy: accuracy that could be achieved by always predicting the most frequent class
+    pd.Series(y_test).value_counts()
+    1-np.mean(y_test)
+    print('True:', y_test[0:25])
+    print('Pred:', y_pred[0:25])
 
     # print confusion matrix
     utils.printConfusionMatrix(y_test, y_pred)
