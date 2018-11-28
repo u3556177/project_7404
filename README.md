@@ -6,6 +6,7 @@ Python - https://www.python.org/downloads/
 XGBoost - https://xgboost.readthedocs.io/en/latest/build.html  
 SciPy - https://www.scipy.org/install.html  
 Graphviz - https://graphviz.gitlab.io/download/  
+scikit-learn - https://scikit-learn.org/stable/install.html  
 
 ## How to run
 ID3
