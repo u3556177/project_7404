@@ -6,7 +6,6 @@ Python - https://www.python.org/downloads/
 XGBoost - https://xgboost.readthedocs.io/en/latest/build.html  
 SciPy - https://www.scipy.org/install.html  
 Graphviz - https://graphviz.gitlab.io/download/  
-decision-tree-id3 - https://pypi.org/project/decision-tree-id3/  
 
 ## How to run
 ID3
@@ -19,6 +18,7 @@ XGBoost
 cd src
 py xgb_main.py
 ```
+Graphs generated are inside output folder
 
 ## Note
 This program has been tested on Windows ONLY
